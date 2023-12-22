@@ -1,0 +1,11 @@
+<launch>
+  <arg name="weights_file" default="/root/EH-Nav/src/perception/ssc-network/weights/weights_epoch_076.pth" />
+  <arg name="dataset_root" default="/root/EH-Nav/src/navigation/plan_manage/raw_data/voxels" />
+  <arg name="output_path" default="/root/EH-Nav/src/perception/ssc-network/prediction" />
+
+  <node name="inference_ros" pkg="perception" type="inference_ros.py" output="screen">
+    <param name="weights_file" value="$(arg weights_file)" />
+    <param name="dataset_root" value="$(arg dataset_root)" />
+    <param name="output_path" value="$(arg output_path)" />
+  </node>
+</launch>

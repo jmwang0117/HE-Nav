@@ -1,0 +1,110 @@
+
+## 起飞高度
+Takeoff_height : 0.5
+
+
+# 位置环参数
+MPC_XY_P : 0.95
+MPC_Z_P : 0.7
+MPC_XY_VEL_P : 0.09
+MPC_Z_VEL_P : 0.15
+MPC_XY_VEL_I : 0.02
+MPC_Z_VEL_I : 0.02
+MPC_XY_VEL_D : 0.02
+MPC_Z_VEL_D : 0.04
+MPC_XY_VEL_MAX : 0.25
+#MPC_XY_VEL_MAX : 1
+MPC_Z_VEL_MAX : 0.25
+MPC_THRUST_HOVER : 0.6
+MPC_THR_MIN: 0.1
+MPC_THR_MAX: 0.9
+tilt_max: 20.0
+MPC_VELD_LP: 5.0
+
+# 位置环参数 for ude
+UDE_MASS : 1.0
+UDE_Kp_X : 2.0
+UDE_Kp_Y : 2.0
+UDE_Kp_Z : 2.0
+UDE_Kd_X : 1.0
+UDE_Kd_Y : 1.0
+UDE_Kd_Z : 1.0
+UDE_T_X : 0.5
+UDE_T_Y : 0.5
+UDE_T_Z : 0.5
+UDE_INT_LIM_X : 5.0
+UDE_INT_LIM_Y : 5.0
+UDE_INT_LIM_Z : 10.0
+UDE_XY_VEL_MAX : 0.8
+UDE_Z_VEL_MAX : 0.4
+UDE_THR_MIN: 0.1
+UDE_THR_MAX: 0.9
+UDE_tilt_max: 20.0
+UDE_a: 20.0
+UDE_b: 0
+
+# 位置环参数 for passivity
+passivity_MASS : 1.0
+passivity_Kp_XY : 1
+passivity_Kp_Z : 1
+passivity_Kd_XY : 2
+passivity_Kd_Z : 2
+passivity_T_ude_XY : 0.5
+passivity_T_ude_Z : 0.5
+passivity_T1: 0.2
+passivity_T2: 1.0
+passivity_INT_LIM_X : 2.0
+passivity_INT_LIM_Y : 2.0
+passivity_INT_LIM_Z : 6.0
+passivity_XY_VEL_MAX : 1.0
+passivity_Z_VEL_MAX : 1.0
+passivity_THR_MIN: 0.1
+passivity_THR_MAX: 0.9
+passivity_tilt_max: 20.0
+passivity_a: 20.0
+passivity_b: 0
+
+## 姿态环参数
+MC_ROLL_P: 6.5
+
+MC_ROLLRATE_P: 0.10
+
+MC_ROLLRATE_I: 0.01
+
+MC_RR_INT_LIM: 0.1
+
+MC_ROLLRATE_D: 0.003
+
+MC_PITCH_P: 6.5
+
+MC_PITCHRATE_P: 0.10
+
+MC_PITCHRATE_I: 0.01
+
+MC_PR_INT_LIM: 0.1
+
+MC_PITCHRATE_D: 0.003
+
+MC_YAW_P: 2.8
+
+MC_YAWRATE_P: 0.2
+
+MC_YAWRATE_I: 0.1
+
+MC_YR_INT_LIM: 0.3
+
+MC_YAWRATE_D: 0.0
+
+MC_YAW_FF: 0.5
+
+MC_ROLLRATE_MAX: 220.0
+
+MC_PITCHRATE_MAX: 220.0
+
+MC_YAWRATE_MAX: 200.0
+
+MC_DTERM_CUTOFF: 30.0
+
+
+
+

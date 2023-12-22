@@ -1,0 +1,7 @@
+<launch>
+	<!-- run the square.cpp -->
+	<node pkg="px4_command" type="square" name="square" output="screen">
+		<!-- load blacklist, config -->
+                <rosparam command="load" file="$(find px4_command)/config/square.yaml" />
+	</node>
+</launch>

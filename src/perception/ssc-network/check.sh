@@ -1,0 +1,1 @@
+python /root/Vi2ENav/src/perception/ssc-network/semantic-kitti-api/validate_submission.py --task completion /root/Vi2ENav/src/perception/ssc-network/predictions/submission.zip /root/datasets/semantic_kitti/dataset

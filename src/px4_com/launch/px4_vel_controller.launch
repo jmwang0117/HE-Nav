@@ -1,0 +1,12 @@
+<launch>
+	<!-- run the position_control.cpp -->
+
+	<node pkg="px4_command" type="px4_vel_controller" name="px4_vel_controller" output="screen">
+		
+	<param name="switch_ude" type="int" value="0" />
+
+	<rosparam command="load" file="$(find px4_command)/config/Parameter_for_control.yaml" />
+
+	</node>
+</launch>
+

@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="px4_command" type="acc_auto_takeoff" name="acc_auto_takeoff" output="screen">
+  </node>  
+</launch>

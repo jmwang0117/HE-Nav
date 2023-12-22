@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="px4_command" type="auto_control" name="auto_control" output="screen">
+  </node>  
+</launch>

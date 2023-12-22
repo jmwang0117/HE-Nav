@@ -1,0 +1,8 @@
+<launch>
+    <node pkg="px4_control" type="avoid_path.py" respawn="false" name="avoid_path" output="screen">
+        <param name="goalListX" value="5.0, 0.0, 3.0, 0.0, 0.0" />
+        <param name="goalListY" value="0.0, 3.0, 0.0, -3.0, 0.0" />
+        <param name="goalListZ" value="0.0, 0.0, 0.0, 0.0, 0.0" />
+        <param name="goalListYaw" value="0.0, 0.0, 0.0, 0.0, 0.0" />
+    </node>
+</launch>

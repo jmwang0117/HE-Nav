@@ -1,0 +1,5 @@
+<launch>
+	<node pkg="px4_command" type="crossing_door_darknet" name="crossing_door_darknet" output="screen">
+                <rosparam command="load" file="$(find px4_command)/config/collision_avoidance.yaml" />
+	</node>
+</launch>
