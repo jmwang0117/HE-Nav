@@ -5,8 +5,8 @@
 </div>
 
 ## News
-- [2023/12]: The [3D model ](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ERX7ejbV3xdOkLQe5SMgGG0Bh6D1qGd-9vg5iMWpi8VQsw?e=H07haj) in the simulation environment can be downloaded in OneDrive.
-- [2023/12]: 🔥 We released the code of HE-Nav in the simulation environment. The pre-trained model can be downloaded at  [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/EYEGifzHhjxEjWtk9fZQ4-MB69iLUPaU60w_FGJU4sQ9Qg?e=w3yael)
+- [2023/04]: The [3D model ](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ERX7ejbV3xdOkLQe5SMgGG0Bh6D1qGd-9vg5iMWpi8VQsw?e=H07haj) in the simulation environment can be downloaded in OneDrive.
+- [2024/04]: 🔥 We released the code of HE-Nav in the simulation environment. The pre-trained model can be downloaded at  [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/EYEGifzHhjxEjWtk9fZQ4-MB69iLUPaU60w_FGJU4sQ9Qg?e=w3yael)
 
 </br>
 
@@ -63,7 +63,7 @@ You've begun this project successfully; **enjoy yourself!**
 ## Acknowledgement
 
 Many thanks to these excellent open source projects:
-- [AGRNav](https://github.com/jmwang0117/Aerial-Walker)
+- [AGRNav](https://github.com/jmwang0117/AGRNav)
 - [Prometheus](https://github.com/amov-lab/Prometheus)
 - [LMSCNet](https://github.com/astra-vision/LMSCNet)
 - [semantic-kitti-api](https://github.com/PRBonn/semantic-kitti-api)
