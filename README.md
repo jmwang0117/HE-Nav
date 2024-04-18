@@ -1,7 +1,7 @@
 <div align="center">   
   
 # HE-Nav: A High-performance and Energy-efficient Navigation System for Aerial-Ground Robots
-Code not updated！
+*We will open source the complete code after the paper is accepted*
 </div>
 
 ## News
