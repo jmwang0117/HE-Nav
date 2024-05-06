@@ -1,11 +1,26 @@
 <launch>
-  <arg name="weights_file" default="/root/EH-Nav/src/perception/ssc-network/weights/weights_epoch_076.pth" />
-  <arg name="dataset_root" default="/root/EH-Nav/src/navigation/plan_manage/raw_data/voxels" />
-  <arg name="output_path" default="/root/EH-Nav/src/perception/ssc-network/prediction" />
+  <arg name="weights_file" default="/root/HE-Nav/src/perception/LBSCNet/weights/weights_epoch_065.pth" />
+  <arg name="dataset_root" default="/root/HE-Nav/src/navigation/plan_manage/raw_data/voxels" />
+  <arg name="output_path" default="/root/HE-Nav/src/perception/LBSCNet/prediction" />
 
-  <node name="inference_ros" pkg="perception" type="inference_ros.py" output="screen">
+  <node name="inference_ros" pkg="perception" type="inference_ros_lbscnet.py" output="screen">
     <param name="weights_file" value="$(arg weights_file)" />
     <param name="dataset_root" value="$(arg dataset_root)" />
     <param name="output_path" value="$(arg output_path)" />
   </node>
 </launch>
+
+
+<!-- 
+<launch>
+ 
+  <arg name="weights_file" default="/root/EH-Nav/src/perception/SCONet/weights/weights_epoch_037.pth" />
+  <arg name="dataset_root" default="/root/EH-Nav/src/navigation/plan_manage/raw_data/voxels" />
+  <arg name="output_path" default="/root/EH-Nav/src/perception/SCONet/prediction" />
+
+  <node name="inference_ros" pkg="perception" type="inference_ros_sconet.py" output="screen">
+    <param name="weights_file" value="$(arg weights_file)" />
+    <param name="dataset_root" value="$(arg dataset_root)" />
+    <param name="output_path" value="$(arg output_path)" />
+  </node>
+</launch> -->

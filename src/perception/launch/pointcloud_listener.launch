@@ -1,0 +1,9 @@
+<launch>
+  <arg name="input_folder" default="/root/HE-Nav/src/perception/raw_data/velodyne"/>
+  <arg name="output_folder" default="/root/HE-Nav/src/perception/raw_data/voxels"/>
+
+  <node pkg="perception" type="pointcloud_listener.py" name="pointcloud_listener" output="screen">
+    <param name="input_folder" value="$(arg input_folder)"/>
+    <param name="output_folder" value="$(arg output_folder)"/>
+  </node>
+</launch>

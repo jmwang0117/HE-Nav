@@ -122,18 +122,15 @@ void renderSensedPoints(const ros::TimerEvent& event) {
     for (size_t i = 0; i < _pointIdxRadiusSearch.size(); ++i) {
       pt = _cloud_all_map.points[_pointIdxRadiusSearch[i]];
 
-      // if ((fabs(pt.z - _odom.pose.pose.position.z) / (pt.x - _odom.pose.pose.position.x)) >
-      //     tan(M_PI / 12.0))
-      //   continue;
-      if ((fabs(pt.z - _odom.pose.pose.position.z) / sensing_horizon) >
-          tan(M_PI / 6.0))
-        continue; 
+      if ((fabs(pt.z - _odom.pose.pose.position.z) / (sensing_horizon)) >
+          tan(M_PI / 12.0))
+        continue;
 
       Vector3d pt_vec(pt.x - _odom.pose.pose.position.x,
                       pt.y - _odom.pose.pose.position.y,
                       pt.z - _odom.pose.pose.position.z);
 
-      if (pt_vec.normalized().dot(yaw_vec) < 0.5) continue; 
+      if (pt_vec.dot(yaw_vec) < 0) continue;
 
       _local_map.points.push_back(pt);
     }
@@ -175,7 +172,7 @@ int main(int argc, char** argv) {
 
   // publisher depth image and color image
   pub_cloud =
-      nh.advertise<sensor_msgs::PointCloud2>("pcl_render_node/cloud", 10);
+      nh.advertise<sensor_msgs::PointCloud2>("/pcl_render_node/cloud", 10);
 
   double sensing_duration = 1.0 / sensing_rate * 2.5;
 

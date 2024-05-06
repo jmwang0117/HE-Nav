@@ -25,7 +25,6 @@ catkin_package(
  INCLUDE_DIRS include
  LIBRARIES plan_env
  CATKIN_DEPENDS roscpp std_msgs
- DEPENDS OpenCV
 #  DEPENDS system_lib
 )
 
@@ -43,17 +42,8 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_library( plan_env 
     src/grid_map.cpp 
     src/raycast.cpp
-    src/obj_predictor.cpp 
     )
 target_link_libraries( plan_env
     ${catkin_LIBRARIES} 
     ${PCL_LIBRARIES}
-    ${OpenCV_LIBS}
     )  
-
-add_executable(obj_generator
-    src/obj_generator.cpp 
-)
-target_link_libraries(obj_generator 
-    ${catkin_LIBRARIES}
-    )

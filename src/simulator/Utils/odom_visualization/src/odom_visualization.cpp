@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <string.h>
 #include "ros/ros.h"
 #include "tf/transform_broadcaster.h"
 #include "nav_msgs/Odometry.h"
@@ -46,26 +46,22 @@ visualization_msgs::Marker sensorROS;
 visualization_msgs::Marker meshROS;
 sensor_msgs::Range         heightROS;
 string _frame_id;
-int _drone_id;
 
 void odom_callback(const nav_msgs::Odometry::ConstPtr& msg)
 {
   if (msg->header.frame_id == string("null"))
     return;
-
   colvec pose(6);  
   pose(0) = msg->pose.pose.position.x;
   pose(1) = msg->pose.pose.position.y;
   pose(2) = msg->pose.pose.position.z;
   colvec q(4);
-
   q(0)    = msg->pose.pose.orientation.w;
   q(1)    = msg->pose.pose.orientation.x;
   q(2)    = msg->pose.pose.orientation.y;
   q(3)    = msg->pose.pose.orientation.z;
   pose.rows(3,5) = R_to_ypr(quaternion_to_R(q));
   colvec vel(3);
-
   vel(0) = msg->twist.twist.linear.x;
   vel(1) = msg->twist.twist.linear.y;
   vel(2) = msg->twist.twist.linear.z;  
@@ -380,16 +376,10 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr& msg)
     colvec q90 = R_to_quaternion(ypr_to_R(p90));  
     transform90.setRotation(tf::Quaternion(q90(1), q90(2), q90(3), q90(0)));  
 
-    string base_s   = _drone_id == -1 ? string("base")   : string("base")  +std::to_string(_drone_id);
-    string laser_s  = _drone_id == -1 ? string("laser")  : string("laser") +std::to_string(_drone_id);
-    string vision_s = _drone_id == -1 ? string("vision") : string("vision")+std::to_string(_drone_id);
-    string height_s = _drone_id == -1 ? string("height") : string("height")+std::to_string(_drone_id);
-
-
-    broadcaster->sendTransform(tf::StampedTransform(transform,   msg->header.stamp, string("world"), base_s));      
-    broadcaster->sendTransform(tf::StampedTransform(transform45, msg->header.stamp, base_s, laser_s));          
-    broadcaster->sendTransform(tf::StampedTransform(transform45, msg->header.stamp, base_s, vision_s));          
-    broadcaster->sendTransform(tf::StampedTransform(transform90, msg->header.stamp, base_s, height_s));          
+    broadcaster->sendTransform(tf::StampedTransform(transform,   msg->header.stamp, string("world"),  string("base")));      
+    broadcaster->sendTransform(tf::StampedTransform(transform45, msg->header.stamp, string("base"), string("laser")));          
+    broadcaster->sendTransform(tf::StampedTransform(transform45, msg->header.stamp, string("base"), string("vision")));          
+    broadcaster->sendTransform(tf::StampedTransform(transform90, msg->header.stamp, string("base"), string("height")));          
   } 
 }
 
@@ -446,22 +436,22 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "odom_visualization");
   ros::NodeHandle n("~");
 
-  n.param("mesh_resource", mesh_resource, std::string("package://odom_visualization/meshes/hummingbird.mesh"));
+  n.param("mesh_resource", mesh_resource, std::string("package://odom_visualization/meshes/AGR.dae"));
+  // n.param("mesh_resource", mesh_resource, std::string("package://odom_visualization/meshes/hummingbird.mesh"));
   n.param("color/r", color_r, 1.0);
   n.param("color/g", color_g, 0.0);
   n.param("color/b", color_b, 0.0);
   n.param("color/a", color_a, 1.0);
   n.param("origin", origin, false);  
   n.param("robot_scale", scale, 2.0);    
-  n.param("frame_id",   _frame_id, string("world") ); 
+  n.param("frame_id",   _frame_id, string("world") );    
  
   n.param("cross_config", cross_config, false);    
   n.param("tf45", tf45, false);    
   n.param("covariance_scale",    cov_scale,  100.0);
   n.param("covariance_position", cov_pos,    false);    
   n.param("covariance_velocity", cov_vel,    false);    
-  n.param("covariance_color",    cov_color,  false);  
-  n.param("drone_id",   _drone_id, -1);   
+  n.param("covariance_color",    cov_color,  false);    
   
   ros::Subscriber sub_odom = n.subscribe("odom", 100,  odom_callback);
   ros::Subscriber sub_cmd  = n.subscribe("cmd",  100,  cmd_callback);

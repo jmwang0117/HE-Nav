@@ -3,6 +3,11 @@
 using namespace std;
 using namespace Eigen;
 
+AStar::AStar() {
+    // Your initialization code here, if any
+}
+
+
 AStar::~AStar()
 {
     for (int i = 0; i < POOL_SIZE_(0); i++)
@@ -10,6 +15,14 @@ AStar::~AStar()
             for (int k = 0; k < POOL_SIZE_(2); k++)
                 delete GridNodeMap_[i][j][k];
 }
+
+void AStar::setParam(ros::NodeHandle& nh) {
+  nh.param("astar/aerial_penalty", aerial_penalty_, 0.0);
+  nh.param("astar/ground_judge", ground_judge_, 0.0);
+  cout << "aerial_penalty:" << aerial_penalty_ << endl;
+  cout << "ground_judge:" << ground_judge_ << endl;
+}
+
 
 void AStar::initGridMap(GridMap::Ptr occ_map, const Eigen::Vector3i pool_size)
 {
@@ -118,6 +131,136 @@ bool AStar::ConvertToIndexAndAdjustStartEndPoints(Vector3d start_pt, Vector3d en
     return true;
 }
 
+// bool AStar::AstarSearch(const double step_size, Vector3d start_pt, Vector3d end_pt)
+// {
+//     ros::Time time_1 = ros::Time::now();
+//     ++rounds_;
+
+//     step_size_ = step_size;
+//     inv_step_size_ = 1 / step_size;
+//     center_ = (start_pt + end_pt) / 2;
+
+//     Vector3i start_idx, end_idx;
+//     if (!ConvertToIndexAndAdjustStartEndPoints(start_pt, end_pt, start_idx, end_idx))
+//     {
+//         ROS_ERROR("Unable to handle the initial or end point, force return!");
+//         return false;
+//     }
+
+//     // if ( start_pt(0) > -1 && start_pt(0) < 0 )
+//     //     cout << "start_pt=" << start_pt.transpose() << " end_pt=" << end_pt.transpose() << endl;
+
+//     GridNodePtr startPtr = GridNodeMap_[start_idx(0)][start_idx(1)][start_idx(2)];
+//     GridNodePtr endPtr = GridNodeMap_[end_idx(0)][end_idx(1)][end_idx(2)];
+
+//     std::priority_queue<GridNodePtr, std::vector<GridNodePtr>, NodeComparator> empty;
+//     openSet_.swap(empty);
+
+//     GridNodePtr neighborPtr = NULL;
+//     GridNodePtr current = NULL;
+
+//     startPtr->index = start_idx;
+//     startPtr->rounds = rounds_;
+//     startPtr->gScore = 0;
+//     startPtr->fScore = getHeu(startPtr, endPtr);
+//     startPtr->state = GridNode::OPENSET; //put start node in open set
+//     startPtr->cameFrom = NULL;
+//     openSet_.push(startPtr); //put start in open set
+
+//     endPtr->index = end_idx;
+
+//     double tentative_gScore;
+
+//     int num_iter = 0;
+//     while (!openSet_.empty())
+//     {
+//         num_iter++;
+//         current = openSet_.top();
+//         openSet_.pop();
+
+//         // if ( num_iter < 10000 )
+//         //     cout << "current=" << current->index.transpose() << endl;
+
+//         if (current->index(0) == endPtr->index(0) && current->index(1) == endPtr->index(1) && current->index(2) == endPtr->index(2))
+//         {
+//             // ros::Time time_2 = ros::Time::now();
+//             // printf("\033[34mA star iter:%d, time:%.3f\033[0m\n",num_iter, (time_2 - time_1).toSec()*1000);
+//             // if((time_2 - time_1).toSec() > 0.1)
+//             //     ROS_WARN("Time consume in A star path finding is %f", (time_2 - time_1).toSec() );
+//             gridPath_ = retrievePath(current);
+//             return true;
+//         }
+//         current->state = GridNode::CLOSEDSET; //move current node from open set to closed set.
+
+//         for (int dx = -1; dx <= 1; dx++)
+//             for (int dy = -1; dy <= 1; dy++)
+//                 for (int dz = -1; dz <= 1; dz++)
+//                 {
+//                     if (dx == 0 && dy == 0 && dz == 0)
+//                         continue;
+
+//                     Vector3i neighborIdx;
+//                     neighborIdx(0) = (current->index)(0) + dx;
+//                     neighborIdx(1) = (current->index)(1) + dy;
+//                     neighborIdx(2) = (current->index)(2) + dz;
+
+//                     if (neighborIdx(0) < 1 || neighborIdx(0) >= POOL_SIZE_(0) - 1 || neighborIdx(1) < 1 || neighborIdx(1) >= POOL_SIZE_(1) - 1 || neighborIdx(2) < 1 || neighborIdx(2) >= POOL_SIZE_(2) - 1)
+//                     {
+//                         continue;
+//                     }
+
+//                     neighborPtr = GridNodeMap_[neighborIdx(0)][neighborIdx(1)][neighborIdx(2)];
+//                     neighborPtr->index = neighborIdx;
+
+//                     bool flag_explored = neighborPtr->rounds == rounds_;
+
+//                     if (flag_explored && neighborPtr->state == GridNode::CLOSEDSET)
+//                     {
+//                         continue; //in closed set.
+//                     }
+
+//                     neighborPtr->rounds = rounds_;
+
+//                     if (checkOccupancy(Index2Coord(neighborPtr->index)))
+//                     {
+//                         continue;
+//                     }
+
+//                     double static_cost = sqrt(dx * dx + dy * dy + dz * dz);
+//                     tentative_gScore = current->gScore + static_cost;
+
+//                     if (!flag_explored)
+//                     {
+//                         //discover a new node
+//                         neighborPtr->state = GridNode::OPENSET;
+//                         neighborPtr->cameFrom = current;
+//                         neighborPtr->gScore = tentative_gScore;
+//                         neighborPtr->fScore = tentative_gScore + getHeu(neighborPtr, endPtr);
+//                         openSet_.push(neighborPtr); //put neighbor in open set and record it.
+//                     }
+//                     else if (tentative_gScore < neighborPtr->gScore)
+//                     { //in open set and need update
+//                         neighborPtr->cameFrom = current;
+//                         neighborPtr->gScore = tentative_gScore;
+//                         neighborPtr->fScore = tentative_gScore + getHeu(neighborPtr, endPtr);
+//                     }
+//                 }
+//         ros::Time time_2 = ros::Time::now();
+//         if ((time_2 - time_1).toSec() > 0.2)
+//         {
+//             ROS_WARN("Failed in A star path searching !!! 0.2 seconds time limit exceeded.");
+//             return false;
+//         }
+//     }
+
+//     ros::Time time_2 = ros::Time::now();
+
+//     if ((time_2 - time_1).toSec() > 0.1)
+//         ROS_WARN("Time consume in A star path finding is %.3fs, iter=%d", (time_2 - time_1).toSec(), num_iter);
+
+//     return false;
+// }
+
 bool AStar::AstarSearch(const double step_size, Vector3d start_pt, Vector3d end_pt)
 {
     ros::Time time_1 = ros::Time::now();
@@ -134,9 +277,6 @@ bool AStar::AstarSearch(const double step_size, Vector3d start_pt, Vector3d end_
         return false;
     }
 
-    // if ( start_pt(0) > -1 && start_pt(0) < 0 )
-    //     cout << "start_pt=" << start_pt.transpose() << " end_pt=" << end_pt.transpose() << endl;
-
     GridNodePtr startPtr = GridNodeMap_[start_idx(0)][start_idx(1)][start_idx(2)];
     GridNodePtr endPtr = GridNodeMap_[end_idx(0)][end_idx(1)][end_idx(2)];
 
@@ -150,9 +290,10 @@ bool AStar::AstarSearch(const double step_size, Vector3d start_pt, Vector3d end_
     startPtr->rounds = rounds_;
     startPtr->gScore = 0;
     startPtr->fScore = getHeu(startPtr, endPtr);
-    startPtr->state = GridNode::OPENSET; //put start node in open set
+    startPtr->state = GridNode::OPENSET;
     startPtr->cameFrom = NULL;
-    openSet_.push(startPtr); //put start in open set
+    startPtr->motion_state = 0; // Start with rolling mode
+    openSet_.push(startPtr);
 
     endPtr->index = end_idx;
 
@@ -165,19 +306,12 @@ bool AStar::AstarSearch(const double step_size, Vector3d start_pt, Vector3d end_
         current = openSet_.top();
         openSet_.pop();
 
-        // if ( num_iter < 10000 )
-        //     cout << "current=" << current->index.transpose() << endl;
-
         if (current->index(0) == endPtr->index(0) && current->index(1) == endPtr->index(1) && current->index(2) == endPtr->index(2))
         {
-            // ros::Time time_2 = ros::Time::now();
-            // printf("\033[34mA star iter:%d, time:%.3f\033[0m\n",num_iter, (time_2 - time_1).toSec()*1000);
-            // if((time_2 - time_1).toSec() > 0.1)
-            //     ROS_WARN("Time consume in A star path finding is %f", (time_2 - time_1).toSec() );
             gridPath_ = retrievePath(current);
             return true;
         }
-        current->state = GridNode::CLOSEDSET; //move current node from open set to closed set.
+        current->state = GridNode::CLOSEDSET;
 
         for (int dx = -1; dx <= 1; dx++)
             for (int dy = -1; dy <= 1; dy++)
@@ -203,7 +337,7 @@ bool AStar::AstarSearch(const double step_size, Vector3d start_pt, Vector3d end_
 
                     if (flag_explored && neighborPtr->state == GridNode::CLOSEDSET)
                     {
-                        continue; //in closed set.
+                        continue;
                     }
 
                     neighborPtr->rounds = rounds_;
@@ -216,20 +350,29 @@ bool AStar::AstarSearch(const double step_size, Vector3d start_pt, Vector3d end_
                     double static_cost = sqrt(dx * dx + dy * dy + dz * dz);
                     tentative_gScore = current->gScore + static_cost;
 
+                    // Determine the motion state of the neighbor
+                    int neighbor_motion_state = (neighborIdx(2) > ground_judge_) ? 1 : 0;
+
+                    // Apply penalty for aerial mode
+                    double aerial_penalty = (neighbor_motion_state == 1) ? aerial_penalty_ : 0;
+
+                    tentative_gScore += aerial_penalty;
+
                     if (!flag_explored)
                     {
-                        //discover a new node
                         neighborPtr->state = GridNode::OPENSET;
                         neighborPtr->cameFrom = current;
                         neighborPtr->gScore = tentative_gScore;
                         neighborPtr->fScore = tentative_gScore + getHeu(neighborPtr, endPtr);
-                        openSet_.push(neighborPtr); //put neighbor in open set and record it.
+                        neighborPtr->motion_state = neighbor_motion_state;
+                        openSet_.push(neighborPtr);
                     }
                     else if (tentative_gScore < neighborPtr->gScore)
-                    { //in open set and need update
+                    {
                         neighborPtr->cameFrom = current;
                         neighborPtr->gScore = tentative_gScore;
                         neighborPtr->fScore = tentative_gScore + getHeu(neighborPtr, endPtr);
+                        neighborPtr->motion_state = neighbor_motion_state;
                     }
                 }
         ros::Time time_2 = ros::Time::now();

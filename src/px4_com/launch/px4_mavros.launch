@@ -1,4 +1,0 @@
-<launch>
-    <node pkg="px4_command" type="px4_mavros_run.py" respawn="false" name="px4_mavros" output="screen">
-    </node>
-</launch>

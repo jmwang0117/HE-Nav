@@ -1,7 +1,6 @@
 // #include <fstream>
 #include <plan_manage/planner_manager.h>
 #include <thread>
-#include "visualization_msgs/Marker.h" // zx-todo
 
 namespace ego_planner
 {
@@ -10,7 +9,7 @@ namespace ego_planner
 
   EGOPlannerManager::EGOPlannerManager() {}
 
-  EGOPlannerManager::~EGOPlannerManager() {}
+  EGOPlannerManager::~EGOPlannerManager() { std::cout << "des manager" << std::endl; }
 
   void EGOPlannerManager::initPlanModules(ros::NodeHandle &nh, PlanningVisualization::Ptr vis)
   {
@@ -22,22 +21,16 @@ namespace ego_planner
     nh.param("manager/feasibility_tolerance", pp_.feasibility_tolerance_, 0.0);
     nh.param("manager/control_points_distance", pp_.ctrl_pt_dist, -1.0);
     nh.param("manager/planning_horizon", pp_.planning_horizen_, 5.0);
-    nh.param("manager/use_distinctive_trajs", pp_.use_distinctive_trajs, false);
-    nh.param("manager/drone_id", pp_.drone_id, -1);
 
     local_data_.traj_id_ = 0;
     grid_map_.reset(new GridMap);
     grid_map_->initMap(nh);
 
-    // obj_predictor_.reset(new fast_planner::ObjPredictor(nh));
-    // obj_predictor_->init();
-    // obj_pub_ = nh.advertise<visualization_msgs::Marker>("/dynamic/obj_prdi", 10); // zx-todo
-
-    bspline_optimizer_.reset(new BsplineOptimizer);
-    bspline_optimizer_->setParam(nh);
-    bspline_optimizer_->setEnvironment(grid_map_, obj_predictor_);
-    bspline_optimizer_->a_star_.reset(new AStar);
-    bspline_optimizer_->a_star_->initGridMap(grid_map_, Eigen::Vector3i(100, 100, 100));
+    bspline_optimizer_rebound_.reset(new BsplineOptimizer);
+    bspline_optimizer_rebound_->setParam(nh);
+    bspline_optimizer_rebound_->setEnvironment(grid_map_);
+    bspline_optimizer_rebound_->a_star_.reset(new AStar);
+    bspline_optimizer_rebound_->a_star_->initGridMap(grid_map_, Eigen::Vector3i(100, 100, 100));
 
     visualization_ = vis;
   }
@@ -50,11 +43,13 @@ namespace ego_planner
                                         Eigen::Vector3d start_acc, Eigen::Vector3d local_target_pt,
                                         Eigen::Vector3d local_target_vel, bool flag_polyInit, bool flag_randomPolyTraj)
   {
+
     static int count = 0;
-    printf("\033[47;30m\n[drone %d replan %d]==============================================\033[0m\n", pp_.drone_id, count++);
-    // cout.precision(3);
-    // cout << "start: " << start_pt.transpose() << ", " << start_vel.transpose() << "\ngoal:" << local_target_pt.transpose() << ", " << local_target_vel.transpose()
-    //      << endl;
+    std::cout << endl
+              << "[rebo replan]: -------------------------------------" << count++ << std::endl;
+    cout.precision(3);
+    cout << "start: " << start_pt.transpose() << ", " << start_vel.transpose() << "\ngoal:" << local_target_pt.transpose() << ", " << local_target_vel.transpose()
+         << endl;
 
     if ((start_pt - local_target_pt).norm() < 0.2)
     {
@@ -63,13 +58,11 @@ namespace ego_planner
       return false;
     }
 
-    bspline_optimizer_->setLocalTargetPt(local_target_pt);
-
     ros::Time t_start = ros::Time::now();
     ros::Duration t_init, t_opt, t_refine;
 
     /*** STEP 1: INIT ***/
-    double ts = (start_pt - local_target_pt).norm() > 0.1 ? pp_.ctrl_pt_dist / pp_.max_vel_ * 1.5 : pp_.ctrl_pt_dist / pp_.max_vel_ * 5; // pp_.ctrl_pt_dist / pp_.max_vel_ is too tense, and will surely exceed the acc/vel limits
+    double ts = (start_pt - local_target_pt).norm() > 0.1 ? pp_.ctrl_pt_dist / pp_.max_vel_ * 1.2 : pp_.ctrl_pt_dist / pp_.max_vel_ * 5; // pp_.ctrl_pt_dist / pp_.max_vel_ is too tense, and will surely exceed the acc/vel limits
     vector<Eigen::Vector3d> point_set, start_end_derivatives;
     static bool flag_first_call = true, flag_force_polynomial = false;
     bool flag_regenerate = false;
@@ -215,112 +208,55 @@ namespace ego_planner
       }
     } while (flag_regenerate);
 
-    Eigen::MatrixXd ctrl_pts, ctrl_pts_temp;
+    Eigen::MatrixXd ctrl_pts;
     UniformBspline::parameterizeToBspline(ts, point_set, start_end_derivatives, ctrl_pts);
 
-    vector<std::pair<int, int>> segments;
-    segments = bspline_optimizer_->initControlPoints(ctrl_pts, true);
+    vector<vector<Eigen::Vector3d>> a_star_pathes;
+    a_star_pathes = bspline_optimizer_rebound_->initControlPoints(ctrl_pts, true);
 
     t_init = ros::Time::now() - t_start;
+
+    static int vis_id = 0;
+    visualization_->displayInitPathList(point_set, 0.2, 0);
+    visualization_->displayAStarList(a_star_pathes, vis_id);
+
     t_start = ros::Time::now();
 
     /*** STEP 2: OPTIMIZE ***/
-    bool flag_step_1_success = false;
-    vector<vector<Eigen::Vector3d>> vis_trajs;
-
-    if (pp_.use_distinctive_trajs)
-    {
-      // cout << "enter" << endl;
-      std::vector<ControlPoints> trajs = bspline_optimizer_->distinctiveTrajs(segments);
-      cout << "\033[1;33m"
-           << "multi-trajs=" << trajs.size() << "\033[1;0m" << endl;
-
-      double final_cost, min_cost = 999999.0;
-      for (int i = trajs.size() - 1; i >= 0; i--)
-      {
-        if (bspline_optimizer_->BsplineOptimizeTrajRebound(ctrl_pts_temp, final_cost, trajs[i], ts))
-        {
-
-          cout << "traj " << trajs.size() - i << " success." << endl;
-
-          flag_step_1_success = true;
-          if (final_cost < min_cost)
-          {
-            min_cost = final_cost;
-            ctrl_pts = ctrl_pts_temp;
-          }
-
-          // visualization
-          point_set.clear();
-          for (int j = 0; j < ctrl_pts_temp.cols(); j++)
-          {
-            point_set.push_back(ctrl_pts_temp.col(j));
-          }
-          vis_trajs.push_back(point_set);
-        }
-        else
-        {
-          cout << "traj " << trajs.size() - i << " failed." << endl;
-        }
-      }
-
-      t_opt = ros::Time::now() - t_start;
-
-      visualization_->displayMultiInitPathList(vis_trajs, 0.2); // This visuallization will take up several milliseconds.
-    }
-    else
-    {
-      flag_step_1_success = bspline_optimizer_->BsplineOptimizeTrajRebound(ctrl_pts, ts);
-      t_opt = ros::Time::now() - t_start;
-      //static int vis_id = 0;
-      visualization_->displayInitPathList(point_set, 0.2, 0);
-    }
-
-    cout << "plan_success=" << flag_step_1_success << endl;
+    bool flag_step_1_success = bspline_optimizer_rebound_->BsplineOptimizeTrajRebound(ctrl_pts, ts);
+    cout << "first_optimize_step_success=" << flag_step_1_success << endl;
     if (!flag_step_1_success)
     {
-      visualization_->displayOptimalList(ctrl_pts, 0);
+      // visualization_->displayOptimalList( ctrl_pts, vis_id );
       continous_failures_count_++;
       return false;
     }
+    //visualization_->displayOptimalList( ctrl_pts, vis_id );
 
+    t_opt = ros::Time::now() - t_start;
     t_start = ros::Time::now();
 
+    /*** STEP 3: REFINE(RE-ALLOCATE TIME) IF NECESSARY ***/
     UniformBspline pos = UniformBspline(ctrl_pts, 3, ts);
     pos.setPhysicalLimits(pp_.max_vel_, pp_.max_acc_, pp_.feasibility_tolerance_);
 
-    /*** STEP 3: REFINE(RE-ALLOCATE TIME) IF NECESSARY ***/
-    // Note: Only adjust time in single drone mode. But we still allow drone_0 to adjust its time profile.
-    if (pp_.drone_id <= 0)
+    double ratio;
+    bool flag_step_2_success = true;
+    if (!pos.checkFeasibility(ratio, false))
     {
+      cout << "Need to reallocate time." << endl;
 
-      double ratio;
-      bool flag_step_2_success = true;
-      if (!pos.checkFeasibility(ratio, false))
-      {
-        cout << "Need to reallocate time." << endl;
-
-        Eigen::MatrixXd optimal_control_points;
-        flag_step_2_success = refineTrajAlgo(pos, start_end_derivatives, ratio, ts, optimal_control_points);
-        if (flag_step_2_success)
-          pos = UniformBspline(optimal_control_points, 3, ts);
-      }
-
-      if (!flag_step_2_success)
-      {
-        printf("\033[34mThis refined trajectory hits obstacles. It doesn't matter if appeares occasionally. But if continously appearing, Increase parameter \"lambda_fitness\".\n\033[0m");
-        continous_failures_count_++;
-        return false;
-      }
+      Eigen::MatrixXd optimal_control_points;
+      flag_step_2_success = refineTrajAlgo(pos, start_end_derivatives, ratio, ts, optimal_control_points);
+      if (flag_step_2_success)
+        pos = UniformBspline(optimal_control_points, 3, ts);
     }
-    else
+
+    if (!flag_step_2_success)
     {
-      static bool print_once = true;
-      if (print_once)
-      {
-        print_once = false;
-        ROS_ERROR("IN SWARM MODE, REFINE DISABLED!");
-      }
+      printf("\033[34mThis refined trajectory hits obstacles. It doesn't matter if appeares occasionally. But if continously appearing, Increase parameter \"lambda_fitness\".\n\033[0m");
+      continous_failures_count_++;
+      return false;
     }
 
     t_refine = ros::Time::now() - t_start;
@@ -328,11 +264,7 @@ namespace ego_planner
     // save planned results
     updateTrajInfo(pos, ros::Time::now());
 
-    static double sum_time = 0;
-    static int count_success = 0;
-    sum_time += (t_init + t_opt + t_refine).toSec();
-    count_success++;
-    cout << "total time:\033[42m" << (t_init + t_opt + t_refine).toSec() << "\033[0m,optimize:" << (t_init + t_opt).toSec() << ",refine:" << t_refine.toSec() << ",avg_time=" << sum_time / count_success << endl;
+    cout << "total time:\033[42m" << (t_init + t_opt + t_refine).toSec() << "\033[0m,optimize:" << (t_init + t_opt).toSec() << ",refine:" << t_refine.toSec() << endl;
 
     // success. YoY
     continous_failures_count_ = 0;
@@ -350,28 +282,6 @@ namespace ego_planner
     updateTrajInfo(UniformBspline(control_points, 3, 1.0), ros::Time::now());
 
     return true;
-  }
-
-  bool EGOPlannerManager::checkCollision(int drone_id)
-  {
-    if (local_data_.start_time_.toSec() < 1e9) // It means my first planning has not started
-      return false;
-
-    double my_traj_start_time = local_data_.start_time_.toSec();
-    double other_traj_start_time = swarm_trajs_buf_[drone_id].start_time_.toSec();
-
-    double t_start = max(my_traj_start_time, other_traj_start_time);
-    double t_end = min(my_traj_start_time + local_data_.duration_ * 2 / 3, other_traj_start_time + swarm_trajs_buf_[drone_id].duration_);
-
-    for (double t = t_start; t < t_end; t += 0.03)
-    {
-      if ((local_data_.position_traj_.evaluateDeBoorT(t - my_traj_start_time) - swarm_trajs_buf_[drone_id].position_traj_.evaluateDeBoorT(t - other_traj_start_time)).norm() < bspline_optimizer_->getSwarmClearance())
-      {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   bool EGOPlannerManager::planGlobalTrajWaypoints(const Eigen::Vector3d &start_pos, const Eigen::Vector3d &start_vel, const Eigen::Vector3d &start_acc,
@@ -530,11 +440,11 @@ namespace ego_planner
     traj = UniformBspline(ctrl_pts, 3, ts);
 
     double t_step = traj.getTimeSum() / (ctrl_pts.cols() - 3);
-    bspline_optimizer_->ref_pts_.clear();
+    bspline_optimizer_rebound_->ref_pts_.clear();
     for (double t = 0; t < traj.getTimeSum() + 1e-4; t += t_step)
-      bspline_optimizer_->ref_pts_.push_back(traj.evaluateDeBoorT(t));
+      bspline_optimizer_rebound_->ref_pts_.push_back(traj.evaluateDeBoorT(t));
 
-    bool success = bspline_optimizer_->BsplineOptimizeTrajRefine(ctrl_pts, ts, optimal_control_points);
+    bool success = bspline_optimizer_rebound_->BsplineOptimizeTrajRefine(ctrl_pts, ts, optimal_control_points);
 
     return success;
   }

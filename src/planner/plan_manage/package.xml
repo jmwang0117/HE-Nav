@@ -7,7 +7,7 @@
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="iszhouxin@zju.edu.cn">iszhouxin</maintainer>
+  <maintainer email="iszhouxin@todo.todo">iszhouxin</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -51,6 +51,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>message_runtime</build_depend>
   
   <build_depend>plan_env</build_depend>
   <build_depend>path_searching</build_depend>
@@ -77,6 +78,3 @@
 
   </export>
 </package>
-
-
-<!-- catkin_make -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=Yes -->

@@ -16,14 +16,13 @@ find_package(catkin REQUIRED COMPONENTS
   visualization_msgs
   plan_env
   cv_bridge
-  traj_utils
   path_searching
 )
 
 catkin_package(
  INCLUDE_DIRS include
  LIBRARIES bspline_opt
- CATKIN_DEPENDS plan_env 
+ CATKIN_DEPENDS plan_env
 #  DEPENDS system_lib
 )
 

@@ -5,10 +5,9 @@
 
 #include <bspline_opt/bspline_optimizer.h>
 #include <bspline_opt/uniform_bspline.h>
-#include <traj_utils/DataDisp.h>
+#include <ego_planner/DataDisp.h>
 #include <plan_env/grid_map.h>
-#include <plan_env/obj_predictor.h>
-#include <traj_utils/plan_container.hpp>
+#include <plan_manage/plan_container.hpp>
 #include <ros/ros.h>
 #include <traj_utils/planning_visualization.h>
 
@@ -38,29 +37,16 @@ namespace ego_planner
 
     void initPlanModules(ros::NodeHandle &nh, PlanningVisualization::Ptr vis = NULL);
 
-    void deliverTrajToOptimizer(void) { bspline_optimizer_->setSwarmTrajs(&swarm_trajs_buf_); };
-
-    void setDroneIdtoOpt(void) { bspline_optimizer_->setDroneId(pp_.drone_id); }
-
-    double getSwarmClearance(void) { return bspline_optimizer_->getSwarmClearance(); }
-
-    bool checkCollision(int drone_id);
-    
-
     PlanParameters pp_;
     LocalTrajData local_data_;
     GlobalTrajData global_data_;
     GridMap::Ptr grid_map_;
-    fast_planner::ObjPredictor::Ptr obj_predictor_;    
-    SwarmTrajData swarm_trajs_buf_;
 
   private:
     /* main planning algorithms & modules */
     PlanningVisualization::Ptr visualization_;
 
-    // ros::Publisher obj_pub_; //zx-todo 
-
-    BsplineOptimizer::Ptr bspline_optimizer_;
+    BsplineOptimizer::Ptr bspline_optimizer_rebound_;
 
     int continous_failures_count_{0};
 

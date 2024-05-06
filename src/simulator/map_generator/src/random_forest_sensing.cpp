@@ -112,7 +112,7 @@ double rd_num = rd();
     for (int r = -widNum / 2.0; r < widNum / 2.0; r++)
       for (int s = -widNum / 2.0; s < widNum / 2.0; s++) {
         h = rand_h(eng);
-        int heiNum = ceil(h / _resolution);
+        int heiNum = 8;
         for (int t = -0.2; t < heiNum; t++) {
           pt_random.x = x + (r + 0.5) * _resolution + 1e-2;
           pt_random.y = y + (s + 0.5) * _resolution + 1e-2;
@@ -126,7 +126,7 @@ double rd_num = rd();
   x = 0, y = 0;
   w_x = 0.2;
   w_y = 20;
-  h = 1;
+  h = 1.5;
   double widNum_x = (w_x / _resolution);
   double widNum_y = (w_y / _resolution);
     for (int r = -widNum_x / 2.0; r <= widNum_x / 2.0; r++)
