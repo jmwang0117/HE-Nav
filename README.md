@@ -5,11 +5,13 @@
 </div>
 
 ## 📢 News
-- [2024/07]: The training logs of LBSCNet can be downloaded from this [link](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ES4bK30J1clOmS_QbErWEbcBdcTGHclf2GcVHuiF8beDlA?e=j9Nvs4).
+- [2024/07]: Experiment log of HE-Nav and its key components (i.e., LBSCNet and AG-Planner).
+
+<div align="center">
 
 | Task | Experiment Log |
 |:------------------------------------------------------------------:|:----------:|
-| LBSCNet|  [link](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ES4bK30J1clOmS_QbErWEbcBdcTGHclf2GcVHuiF8beDlA?e=j9Nvs4). |
+| LBSCNet|  [link](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ES4bK30J1clOmS_QbErWEbcBdcTGHclf2GcVHuiF8beDlA?e=j9Nvs4) |
 |HE-Nav navigation in square room |  |
 |HE-Nav navigation in corridor    |  |
 |AGRNav navigation in square room |  |
@@ -17,6 +19,7 @@
 |TABV navigation in square room   |  |
 |TABV navigation in square room   |  |
 
+</div>
 
 
 - [2024/04]: The [3D model ](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ERX7ejbV3xdOkLQe5SMgGG0Bh6D1qGd-9vg5iMWpi8VQsw?e=H07haj) in the simulation environment can be downloaded in OneDrive.
