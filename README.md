@@ -11,7 +11,7 @@
 
 | Task | Experiment Log |
 |:------------------------------------------------------------------:|:----------:|
-| LBSCNet|  [link](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ES4bK30J1clOmS_QbErWEbcBdcTGHclf2GcVHuiF8beDlA?e=j9Nvs4) |
+| LBSCNet training log|  [link](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ES4bK30J1clOmS_QbErWEbcBdcTGHclf2GcVHuiF8beDlA?e=j9Nvs4) |
 |HE-Nav navigation in square room |  |
 |HE-Nav navigation in corridor    |  |
 |AGRNav navigation in square room |  |
