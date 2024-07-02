@@ -5,7 +5,7 @@
 </div>
 
 ## 📢 News
-- [2024/07]: The training logs of LBSCNet and the navigation experiment logs of HE-Nav can be downloaded from this [link](https://connecthkuhk-my.sharepoint.com/:f:/g/personal/u3009632_connect_hku_hk/EspXg1lHAElIpMbWldFNpxgB5eHx80JQ4sdtIn0-ymcZ5w?e=NQ8JDK).
+- [2024/07]: The training logs of LBSCNet can be downloaded from this [link](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ES4bK30J1clOmS_QbErWEbcBdcTGHclf2GcVHuiF8beDlA?e=j9Nvs4).
 - [2024/04]: The [3D model ](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ERX7ejbV3xdOkLQe5SMgGG0Bh6D1qGd-9vg5iMWpi8VQsw?e=H07haj) in the simulation environment can be downloaded in OneDrive.
 - [2024/04]: 🔥 We released the code of HE-Nav in the simulation environment. The pre-trained model can be downloaded at  [OneDrive](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/Ef07DNxypO1KhwuMNbthmP8BgIeDdXJyaeq4uwi6hFKgRw?e=y2LYv2)
 
