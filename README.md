@@ -12,12 +12,12 @@
 | Task | Experiment Log |
 |:------------------------------------------------------------------:|:----------:|
 | LBSCNet training log|  [link](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/u3009632_connect_hku_hk/ES4bK30J1clOmS_QbErWEbcBdcTGHclf2GcVHuiF8beDlA?e=j9Nvs4) |
-|HE-Nav navigation in square room |  |
-|HE-Nav navigation in corridor    |  |
-|AGRNav navigation in square room |  |
-|AGRNav navigation in square room |  |
-|TABV navigation in square room   |  |
-|TABV navigation in square room   |  |
+|HE-Nav navigation in square room | [link](https://connecthkuhk-my.sharepoint.com/:t:/g/personal/u3009632_connect_hku_hk/EdDSBGd6BoRCk-Z6n6-Oq3MBvO2guMwuRzuY94yAGMjH3g?e=ArJnb1) |
+|HE-Nav navigation in corridor    | [link](https://connecthkuhk-my.sharepoint.com/:t:/g/personal/u3009632_connect_hku_hk/EWIYOtw2NuJJv8DF3TtyBtwBMkXh9hHWtDJ0twzNZsbvxQ?e=7sxqtX) |
+|AGRNav navigation in square room |  [link](https://connecthkuhk-my.sharepoint.com/:t:/g/personal/u3009632_connect_hku_hk/EWwc2nga055FmmZtjMzDKvUBQ_a0-4hvlR5JDgZp1YokPg?e=iO8vAR) |
+|AGRNav navigation in corridor |  [link](https://connecthkuhk-my.sharepoint.com/:t:/g/personal/u3009632_connect_hku_hk/Ef9iKrhWWeRLuao_lIzrKj8BNYomkP32ySjGFZklH6AvoQ?e=xzTPwW) |
+|TABV navigation in square room   |  [link](https://connecthkuhk-my.sharepoint.com/:t:/g/personal/u3009632_connect_hku_hk/ESVa9j_CYS1OowU9LHd2b5EBATIvytkssDNX61CksD1GzQ?e=Du56M3) |
+|TABV navigation in corridor   |  [link](https://connecthkuhk-my.sharepoint.com/:t:/g/personal/u3009632_connect_hku_hk/EQSuP89F935IhDmJ3e_eGQYBu62tEfuYKRjRpHZy7AcUhw?e=e6Flgk) |
 
 </div>
 
