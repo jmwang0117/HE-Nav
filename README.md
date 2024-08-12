@@ -1,6 +1,6 @@
 <div align="center">   
   
-# 🤖 HE-Nav: A High-Performance and Efficient Navigation System for Aerial-Ground Robots in Occluded Environments
+# 🤖 HE-Nav: A High-Performance and Efficient Navigation System for Aerial-Ground Robots in Cluttered Environments
 *We will open source the complete code after the paper is accepted*
 </div>
 
