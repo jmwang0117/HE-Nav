@@ -77,8 +77,8 @@ You've begun this project successfully; **enjoy yourself!**
 
 ## 🤗 AGR-Family Works
 
-* [HE-Nav](https://jmwang0117.github.io/HE-Nav/) (Submitted to RA-L'24): The First AGR Navigation System that achieves ESDF-free Path Planning in Heavily Cluttered Environments.
-* [AGRNav](https://github.com/jmwang0117/AGRNav) (ICRA'24): The First AGR Navigation System with Occlusion Awareness.
+* [HE-Nav](https://jmwang0117.github.io/HE-Nav/) (Submitted to RA-L'24): The First AGR-Tailored ESDF-Free Navigation System.
+* [AGRNav](https://github.com/jmwang0117/AGRNav) (ICRA'24): The First AGR-Tailored Occlusion-Aware Navigation System.
 
 
 ## 🏆Acknowledgement
