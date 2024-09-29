@@ -4,6 +4,12 @@
 *We will open source the complete code after the paper is accepted*
 </div>
 
+## 🤗 AGR-Family Works
+
+* [HE-Nav](https://jmwang0117.github.io/HE-Nav/) (RA-L'24): The First AGR-Tailored ESDF-Free Navigation System.
+* [AGRNav](https://github.com/jmwang0117/AGRNav) (ICRA'24): The First AGR-Tailored Occlusion-Aware Navigation System.
+
+
 ## 📢 News
 - [2024/07]: Experiment log of HE-Nav and its key components (i.e., LBSCNet and AG-Planner).
 
@@ -74,11 +80,6 @@ You've begun this project successfully; **enjoy yourself!**
 
 - [x] SemanticKITTI
 
-
-## 🤗 AGR-Family Works
-
-* [HE-Nav](https://jmwang0117.github.io/HE-Nav/) (Submitted to RA-L'24): The First AGR-Tailored ESDF-Free Navigation System.
-* [AGRNav](https://github.com/jmwang0117/AGRNav) (ICRA'24): The First AGR-Tailored Occlusion-Aware Navigation System.
 
 
 ## 🏆Acknowledgement
