@@ -1,5 +1,4 @@
 <div align="center">   
-  
 # 🤖 HE-Nav: A High-Performance and Efficient Navigation System for Aerial-Ground Robots in Cluttered Environments
 *We will open source the complete code after the paper is accepted*
 </div>
@@ -89,5 +88,7 @@ Many thanks to these excellent open source projects:
 - [LMSCNet](https://github.com/astra-vision/LMSCNet)
 - [semantic-kitti-api](https://github.com/PRBonn/semantic-kitti-api)
 - [Terrestrial-Aerial-Navigation](https://github.com/ZJU-FAST-Lab/Terrestrial-Aerial-Navigation)
+- [SSA-SC](https://github.com/jokester-zzz/SSA-SC)
+- [SSC-RS](https://github.com/Jieqianyu/SSC-RS)
 - [Fast-Planner](https://github.com/HKUST-Aerial-Robotics/Fast-Planner)
 
