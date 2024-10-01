@@ -36,6 +36,15 @@
 
 </br>
 
+## 📜 Introduction
+
+**HE-Nav** introduces a novel, efficient navigation system specialized for Autonomous Ground Robots (AGRs) in highly obstructed settings, optimizing both perception and path planning. It leverages a lightweight semantic scene completion network (LBSCNet) and an energy-efficient path planner (AG-Planner) to deliver high-performance, real-time navigation with impressive energy savings and planning success rates.
+
+
+
+<p align="center">
+  <img src="misc/overview1.png" width = 60% height = 60%/>
+</p>
 
 
 <br>
@@ -52,14 +61,6 @@
 <br>
 
 Please kindly star ⭐️ this project if it helps you. We take great efforts to develop and maintain it 😁.
-
-
-
-
-
-
-
-
 
 
 
