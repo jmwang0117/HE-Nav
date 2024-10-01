@@ -36,6 +36,33 @@
 
 </br>
 
+
+
+<br>
+
+```
+@article{wang2024he,
+  title={HE-Nav: A High-Performance and Efficient Navigation System for Aerial-Ground Robots in Cluttered Environments},
+  author={Wang, Junming and Sun, Zekai and Guan, Xiuxian and Shen, Tianxiang and Huang, Dong and Zhang, Zongyuan and Duan, Tianyang and Liu, Fangming and Cui, Heming},
+  journal={IEEE Robotics and Automation Letters},
+  year={2024},
+  publisher={IEEE}
+}
+```
+<br>
+
+Please kindly star ⭐️ this project if it helps you. We take great efforts to develop and maintain it 😁.
+
+
+
+
+
+
+
+
+
+
+
 ## 🛠️ Installation
 The code was tested with `python=3.6.9`, as well as `pytorch=1.10.0+cu111` and `torchvision=0.11.2+cu111`. 
 
@@ -77,6 +104,7 @@ sh src/run_sim.sh
 ```
 
 You've begun this project successfully; **enjoy yourself!**
+
 
 
 ## 💽 Dataset
