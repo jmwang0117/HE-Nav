@@ -1,8 +1,11 @@
-<div align="center">   
-
-# 🤖 HE-Nav: A High-Performance and Efficient Navigation System for Aerial-Ground Robots in Cluttered Environments
-*We will open source the complete code after the paper is accepted*
+<div align="center">
+    <h1>🤖 HE-Nav</h1>
+    <h2>A High-Performance and Efficient Navigation System for Aerial-Ground Robots in Cluttered Environments</h2> <br>
+    <a href='https://jmwang0117.github.io/HE_Nav.pdf'><img src='https://img.shields.io/badge/arXiv-HE_Nav-green' alt='arxiv'></a>
+    <a href='https://jmwang0117.github.io/HE-Nav/'><img src='https://img.shields.io/badge/Project_Page-HE_Nav-green' alt='Project Page'></a>
+    
 </div>
+
 
 ## 🤗 AGR-Family Works
 
