@@ -6,6 +6,9 @@
     
 </div>
 
+## 🎉 Chinese Media Reports
+* [AMOV Lab Research Scholarship](https://mp.weixin.qq.com/s/AXbW3LDgsl9knQBIMwIpvA) -- 2024.11: 5000 RMB
+* [AMOV Lab Research Scholarship](https://mp.weixin.qq.com/s/PUwY04sMpVmz30kSn6XdzQ) -- 2024.10: 5000 RMB
 
 ## 🤗 AGR-Family Works
 
@@ -51,11 +54,14 @@
 <br>
 
 ```
-@article{wang2024he,
+@article{wang2024henav,
   title={HE-Nav: A High-Performance and Efficient Navigation System for Aerial-Ground Robots in Cluttered Environments},
   author={Wang, Junming and Sun, Zekai and Guan, Xiuxian and Shen, Tianxiang and Huang, Dong and Zhang, Zongyuan and Duan, Tianyang and Liu, Fangming and Cui, Heming},
   journal={IEEE Robotics and Automation Letters},
   year={2024},
+  volume={9},
+  number={11},
+  pages={10383-10390},
   publisher={IEEE}
 }
 ```
