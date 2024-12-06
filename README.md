@@ -77,12 +77,12 @@ Please kindly star ⭐️ this project if it helps you. We take great efforts to
 
 | Hardware | Link |
 |:------------------:|:----------:|
-| AMOV Lab P600 UAV | link |
-| AMOV Lab Allapark1-Jetson Xavier NX | link |
-| Wheeltec R550 ROS Car | link |
-| Intel RealSense D435i | link |
-| Intel RealSense T265 | link |
-| TFmini Plus | link |
+| AMOV Lab P600 UAV | [link](https://www.amovlab.com/product/detail?pid=76) |
+| AMOV Lab Allapark1-Jetson Xavier NX | [link](https://www.amovlab.com/product/detail?pid=77) |
+| Wheeltec R550 ROS Car | [link](https://www.wheeltec.com/product/detail?pid=10) |
+| Intel RealSense D435i | [link](https://www.intelrealsense.com/camera-d435i/) |
+| Intel RealSense T265 | [link](https://www.intelrealsense.com/camera-t265/) |
+| TFmini Plus | [link](https://en.benewake.com/TFminiPlus/index_proid_323.html) |
 
 </div>
 
