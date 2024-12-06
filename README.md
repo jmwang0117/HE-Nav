@@ -131,7 +131,7 @@ source devel/setup.bash
 sh src/run_sim.sh
 ```
 
-You've begun this project successfully; **enjoy yourself!**
+You've begun this project successfully; If you only want to use the path planner, you can delete the perception network in the ROS package!!! **enjoy yourself!**
 
 
 
