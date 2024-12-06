@@ -86,9 +86,9 @@ Please kindly star ⭐️ this project if it helps you. We take great efforts to
 
 </div>
 
-❗ Considering that visual positioning is prone to drift in the Z-axis direction, we added TFmini Plus for height measurement. Additionally, GNSS-RTK positioning is recommended for better localization accuracy.
+❗ Considering that visual positioning is prone to drift in the Z-axis direction, we added TFmini Plus for height measurement. Additionally, **GNSS-RTK positioning** is recommended for better localization accuracy.
 
-🤑 Our customized Aerial-Ground Robot cost about RMB 70,000.
+🤑 Our customized Aerial-Ground Robot cost about **RMB 70,000**.
 
 
 ## 🛠️ Installation
