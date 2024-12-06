@@ -79,9 +79,9 @@ Please kindly star ⭐️ this project if it helps you. We take great efforts to
 |:------------------:|:----------:|
 | AMOV Lab P600 UAV | [link](https://www.amovlab.com/product/detail?pid=76) |
 | AMOV Lab Allapark1-Jetson Xavier NX | [link](https://www.amovlab.com/product/detail?pid=77) |
-| Wheeltec R550 ROS Car | [link](https://www.wheeltec.com/product/detail?pid=10) |
-| Intel RealSense D435i | [link](https://www.intelrealsense.com/camera-d435i/) |
-| Intel RealSense T265 | [link](https://www.intelrealsense.com/camera-t265/) |
+| Wheeltec R550 ROS Car | [link](https://lubancat.wheeltec.net/zh-cn/main/neirong/01%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D/01%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D.html) |
+| Intel RealSense D435i | [link](https://www.intelrealsense.com/depth-camera-d435i/) |
+| Intel RealSense T265 | [link](https://www.intelrealsense.com/visual-inertial-tracking-case-study/) |
 | TFmini Plus | [link](https://en.benewake.com/TFminiPlus/index_proid_323.html) |
 
 </div>
