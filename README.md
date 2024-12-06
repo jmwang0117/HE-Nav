@@ -6,9 +6,6 @@
     
 </div>
 
-## 🎉 Chinese Media Reports/Interpretations
-* [AMOV Lab Research Scholarship](https://mp.weixin.qq.com/s/AXbW3LDgsl9knQBIMwIpvA) -- 2024.11: 5000 RMB
-* [AMOV Lab Research Scholarship](https://mp.weixin.qq.com/s/PUwY04sMpVmz30kSn6XdzQ) -- 2024.10: 5000 RMB
 
 ## 🤗 AGR-Family Works
 
@@ -16,6 +13,10 @@
 * [HE-Nav](https://jmwang0117.github.io/HE-Nav/) (RA-L 2024.09): The First AGR-Tailored ESDF-Free Navigation System.
 * [AGRNav](https://github.com/jmwang0117/AGRNav) (ICRA 2024.01): The First AGR-Tailored Occlusion-Aware Navigation System.
 
+
+## 🎉 Chinese Media Reports/Interpretations
+* [AMOV Lab Research Scholarship](https://mp.weixin.qq.com/s/AXbW3LDgsl9knQBIMwIpvA) -- 2024.11: 5000 RMB
+* [AMOV Lab Research Scholarship](https://mp.weixin.qq.com/s/PUwY04sMpVmz30kSn6XdzQ) -- 2024.10: 5000 RMB
 
 ## 📢 News
 - [2024/07]: Experiment log of HE-Nav and its key components (i.e., LBSCNet and AG-Planner).
@@ -69,6 +70,21 @@
 
 Please kindly star ⭐️ this project if it helps you. We take great efforts to develop and maintain it 😁.
 
+
+## 🔧 Hardware List
+
+| Hardware | Link |
+|:------------------:|:----------:|
+| AMOV Lab P600 UAV | [link](https://www.amovlab.com/product/detail?pid=76) |
+| AMOV Lab Allapark1-Jetson Xavier NX | [link](https://www.amovlab.com/product/detail?pid=77) |
+| Wheeltec R550 ROS Car | [link](https://www.wheeltec.com/product/detail?pid=10) |
+| Intel RealSense D435i | [link](https://www.intelrealsense.com/camera-d435i/) |
+| Intel RealSense T265 | [link](https://www.intelrealsense.com/camera-t265/) |
+| TFmini Plus | [link](https://en.benewake.com/TFminiPlus/index_proid_323.html) |
+
+❗ Considering that visual positioning is prone to drift in the Z-axis direction, we added TFmini Plus for height measurement. Additionally, GNSS-RTK positioning is recommended for better localization accuracy.
+
+🤑 Our customized Aerial-Ground Robot cost about RMB 70,000.
 
 
 ## 🛠️ Installation
