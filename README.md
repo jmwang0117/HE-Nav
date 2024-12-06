@@ -72,7 +72,7 @@ Please kindly star ⭐️ this project if it helps you. We take great efforts to
 
 
 ## 🔧 Hardware List
-
+<div align="center">
 | Hardware | Link |
 |:------------------:|:----------:|
 | AMOV Lab P600 UAV | [link](https://www.amovlab.com/product/detail?pid=76) |
@@ -81,7 +81,7 @@ Please kindly star ⭐️ this project if it helps you. We take great efforts to
 | Intel RealSense D435i | [link](https://www.intelrealsense.com/camera-d435i/) |
 | Intel RealSense T265 | [link](https://www.intelrealsense.com/camera-t265/) |
 | TFmini Plus | [link](https://en.benewake.com/TFminiPlus/index_proid_323.html) |
-
+</div>
 ❗ Considering that visual positioning is prone to drift in the Z-axis direction, we added TFmini Plus for height measurement. Additionally, GNSS-RTK positioning is recommended for better localization accuracy.
 
 🤑 Our customized Aerial-Ground Robot cost about RMB 70,000.
